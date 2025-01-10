@@ -20,4 +20,24 @@ public class StudentService {
 
         return studentRepository.getAllStudents();
     }
+
+    public void saveStudent(Student student) {
+
+        studentRepository.saveStudent(student);
+    }
+
+    public void deleteStudentById(long id) {
+
+        studentRepository.deleteStudentById(id);
+    }
+
+    public Student getStudentById(long id) {
+
+        return studentRepository.getStudentById(id);
+    }
+
+    public void updateStudent(Student student) {
+
+        studentRepository.updateStudent(student);
+    }
 }
