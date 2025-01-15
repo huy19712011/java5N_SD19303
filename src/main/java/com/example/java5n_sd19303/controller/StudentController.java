@@ -31,7 +31,7 @@ public class StudentController {
         model.addAttribute("students", students);
 
         // return view name
-        return "/views/students";
+        return "views/students";
 
     }
 
