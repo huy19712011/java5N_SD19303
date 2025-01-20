@@ -2,6 +2,17 @@ package com.example.java5n_sd19303.entity;
 
 import jakarta.persistence.*;
 
+// JPQL
+@NamedQuery(
+        name = "Student.findByNameV4a",
+        query = "SELECT s FROM Student s WHERE s.name=?1"
+)
+// Native
+@NamedNativeQuery(
+        name = "Student.findByNameV4b",
+        query = "SELECT * FROM students s WHERE s.name=?1",
+        resultClass = Student.class
+)
 @Entity
 @Table(name = "students")
 public class Student {

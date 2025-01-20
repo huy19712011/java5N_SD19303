@@ -30,6 +30,12 @@ public interface StudentRepositoryV2 extends JpaRepository<Student, Long> {
 
 
     // 4. Named query
+    // JPQL
+    List<Student> findByNameV4a(String name);
+
+    // Native
+    @Query(nativeQuery = true)
+    List<Student> findByNameV4b(String name);
 
 
 }
