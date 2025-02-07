@@ -1,6 +1,9 @@
 package com.example.java5n_sd19303.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 // JPQL
 @NamedQuery(
@@ -20,8 +23,15 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Size(min = 2, max = 30, message = "Name must be between 2 and 30 characters")
     private String name;
+
+    @Email(message = "Please enter a valid email")
+    @Pattern(regexp = "^(.+)@(fpt\\.edu\\.vn)$", message = "Invalid FPT Poly Email")
     private String email;
+
+    @Pattern(regexp = "^(0)\\d{9}", message = "Invalid phone number")
     private String phone;
 
     public Student() {
