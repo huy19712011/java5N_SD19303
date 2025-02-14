@@ -1,7 +1,10 @@
 package com.example.java5n_sd19303;
 
+import com.example.java5n_sd19303.entity.Role;
 import com.example.java5n_sd19303.entity.Student;
+import com.example.java5n_sd19303.entity.User;
 import com.example.java5n_sd19303.repository.StudentRepositoryV2;
+import com.example.java5n_sd19303.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,8 +21,10 @@ import java.util.List;
 public class Java5NSd19303Application implements CommandLineRunner {
 
     private final StudentRepositoryV2 studentRepositoryV2;
-    public Java5NSd19303Application(StudentRepositoryV2 studentRepositoryV2) {
+    private final UserService userService;
+    public Java5NSd19303Application(StudentRepositoryV2 studentRepositoryV2, UserService userService) {
         this.studentRepositoryV2 = studentRepositoryV2;
+        this.userService = userService;
     }
 
     public static void main(String[] args) {
@@ -28,6 +34,7 @@ public class Java5NSd19303Application implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
 
         // 2. example
@@ -85,6 +92,27 @@ public class Java5NSd19303Application implements CommandLineRunner {
         studentRepositoryV2
                 .findAll(PageRequest.of(pageNo, pageSize, sort))
                 .forEach(s -> System.out.println(s.getName()));
+
+        // users and roles
+        User user = new User("user 1", "password 1", "phone 1", "email 1");
+        Role role = new Role("admin");
+        user.addRole(role);
+        userService.addUser(user);
+
+        User user2 = new User("user 2", "password 2", "phone 2", "email 2");
+        user2.addRole(role);
+        userService.addUser(user2);
+
+
+        User user3 = new User("user 3", "password 3", "phone 3", "email 3");
+        Role role2 = new Role("user");
+        user3.addRole(role2);
+        user3.addRole(role);
+        userService.addUser(user3);
+
+
+
+
 
     }
 }
